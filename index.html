@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+    .square {
+        margin: 100px;
+        height: 250px;
+        width: 250px;
+        background-color: black;
+    }
+    .circle {
+        height: 250px;
+        width: 250px;
+        background-color: aqua;
+        border-radius: 50%;
+    }
+    .square2 {
+        height: 250px;
+        width: 250px;
+        background-color: black;
+    }
+    .aux {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        visibility: hidden;
+    }
+</style>
+</head>
+<body>
+    <h1>Cálculo de PI con el método de Montecarlo</h1>
+    <section class="w3-row  w3-light-grey">
+        <section class="w3-half">
+            <h2>Calcular PI</h2>
+            <p></p>
+            <label for="rice-number">Cantidad de granos de arroz</label>
+            <input id="rice-number" type="number" min="1" placeholder="Número de granos">
+            <button onclick="generateRandomNumbers()">Ejecutar la simulación</button>
+        </section>
+        <section class="w3-half">
+            <h3>Resultados</h3>
+            <section id="results">
+                <p id="p-inside">Adentro del cículo: </p>
+                <p id="p-total">Total: </p>
+                <p id="p-formula">Valor aproximado de PI: </p>
+            </section>
+        </section>
+    </section>
+    <section class="w3-row w3-sand">
+        <section class="w3-third">
+            <div class="square">
+                <div class="circle"></div>
+            </div>
+        </section>
+        <section class="w3-twothird w3-blue-grey">
+            <h2>Números generados</h2>
+            <table class="w3-table w3-striped w3-bordered w3-text-black">
+                <thead>
+                <tr>
+                    <th>Contador arroz</th>
+                    <th>Número aleatorio 1</th>
+                    <th>Número aleatorio 2</th>
+                    <th>Valor de entrada eje X</th>
+                    <th>Valor de entrada eje Y</th>
+                    <th>Posición</th>
+                </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <section class="aux">
+        <div class="square2" onclick="setActive()">
+            <div class="circle" onclick="setInactive()"></div>
+        </div>
+    </section>
+</body>
+</html>
+
+<script>
+    function generateRandomNumbers() {
+        quantity = document.querySelector("#rice-number").value
+        console.log(quantity)
+        if (quantity > 0) {
+            let randomNumbers = [];
+            for (let i = 0; i < quantity; i++) {
+                const randomX = Math.random(); //* 250
+                const randomY = Math.random(); //* 250
+                randomNumbers.push([randomX, randomY, (randomX * 250) - 125, (randomY * 250) - 125]);
+            }
+            let tableBody = document.querySelector("#table-body");
+            tableBody.innerHTML = "";
+            let k = 1
+            let inside = 0
+            randomNumbers.forEach(numbers => {
+                let row = document.createElement("tr");
+                let randomNumber1 = document.createElement("th");
+                randomNumber1.textContent = numbers[0];
+                let randomNumber2 = document.createElement("th");
+                randomNumber2.textContent = numbers[1];
+                let randomValue1 = document.createElement("th");
+                randomValue1.textContent = numbers[2];
+                let randomValue2 = document.createElement("th");
+                randomValue2.textContent = numbers[3];
+                let riceId = document.createElement("th");
+                riceId.textContent = "" + k;
+                let position = document.createElement("th");
+                var isInside = getPositionValue(numbers[2], numbers[3]);
+                if (isInside === 1) {
+                    position.textContent = "Dentro del círculo";
+                    inside++;
+                } else  {
+                    position.textContent = "Afuera del círculo";
+                }
+                row.appendChild(riceId);
+                row.appendChild(randomNumber1);
+                row.appendChild(randomNumber2);
+                row.appendChild(randomValue1);
+                row.appendChild(randomValue2);
+                row.appendChild(position);
+                tableBody.appendChild(row);
+                k ++;
+            });
+            let p = document.querySelector("#p-inside");
+            p.textContent = "Adentro del cículo: " + inside + " granos de arroz"
+            p = document.querySelector("#p-total");
+            p.textContent = "Total:  " + quantity + " granos de arroz"
+            p = document.querySelector("#p-formula");
+            const approxPi = (inside / quantity) * 4
+            p.textContent = "Valor aproximado de PI: (" + inside + " / " + quantity + ") * 4 = " + approxPi
+        }
+    }
+
+    function getPositionValue(x, y) {
+        let result = 1;
+        // Para ver si el arroz cayó en el círculo, se toma el cuadrado como un gráfico de coordinadas
+        // Donde el origen es el medio del cuadrado.
+        let theta = Math.atan2(y - 125, x - 125) * (180 / Math.PI); // Calculo el ángulo del punto
+        const radius = 125
+        const circleX = Math.cos(theta)*radius; // Punto de la circunferencia del círculo en el ángulo theta
+        const circleY = Math.sin(theta)*radius; // Punto de la circunferencia del círculo en el ángulo theta
+        // Se calcula si el grano arroz cayó
+        let xSigne = 1;
+        let ySigne = 1;
+        if (x < 0) { xSigne = -1; }
+        if (y < 0) { ySigne = -1; }
+        if (x > circleX * xSigne && y > circleY * ySigne) {
+            result = 0;
+        }
+        return result;
+    }
+
+</script>
