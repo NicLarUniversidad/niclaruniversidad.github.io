@@ -34,8 +34,22 @@
 <body>
     <h1>Cálculo de PI con el método de Montecarlo</h1>
     <section class="w3-row  w3-light-grey">
+        <section>
+            <h2>Descripción</h2>
+            <p>Se resolvió representando la hoja de papel en un sistema de coordenadas cartesianas.</p>
+            <p>Donde el centro del cuadrado y el círculo es el origen (0, 0).</p>
+            <p>Se usa como unidades píxeles (por si se llega a representar en un dibujo).
+                Los lados del cuadrado miden 250 píxeles y el diámetro del círculo es de 125 píxeles.</p>
+            <p>Por lo que cuando se simula que se tira un grano de arroz sobre la hoja, se generan
+                dos números aleatorios. Uno para obtener un valor en la posición del eje X y otro
+                del eje Y.</p>
+            <p>Luego de calcular dos puntos aleatorios, se calcula el ángulo con respecto al centro del círculo que coincide la ordenada al origen.
+               Se calcula el punto de la circunferencia del círculo en ese ángulo.
+                Y con ese punto se calcula si el arroz cae afuera o dentro del círculo.
+            </p>
+        </section>
         <section class="w3-half">
-            <h2>Calcular PI</h2>
+            <h3>Calcular PI</h3>
             <p></p>
             <label for="rice-number">Cantidad de granos de arroz</label>
             <input id="rice-number" type="number" min="1" placeholder="Número de granos">
@@ -51,12 +65,12 @@
         </section>
     </section>
     <section class="w3-row w3-sand">
-        <section class="w3-third">
-            <div class="square">
-                <div class="circle"></div>
-            </div>
-        </section>
-        <section class="w3-twothird w3-blue-grey">
+<!--        <section class="w3-third">-->
+<!--            <div class="square">-->
+<!--                <div class="circle"></div>-->
+<!--            </div>-->
+<!--        </section>-->
+        <section class="w3-rest w3-blue-grey">
             <h2>Números generados</h2>
             <table class="w3-table w3-striped w3-bordered w3-text-black">
                 <thead>
@@ -66,7 +80,9 @@
                     <th>Número aleatorio 2</th>
                     <th>Valor de entrada eje X</th>
                     <th>Valor de entrada eje Y</th>
-                    <th>Posición</th>
+                    <th>Ángulo o theta</th>
+                    <th>Punto de la circunferencia en theta</th>
+                    <th>Posición del grano</th>
                 </tr>
                 </thead>
                 <tbody id="table-body">
@@ -110,18 +126,25 @@
                 let riceId = document.createElement("th");
                 riceId.textContent = "" + k;
                 let position = document.createElement("th");
-                var isInside = getPositionValue(numbers[2], numbers[3]);
+                var values = getPositionValue(numbers[2], numbers[3]);
+                var isInside = values[0]
                 if (isInside === 1) {
                     position.textContent = "Dentro del círculo";
                     inside++;
                 } else  {
                     position.textContent = "Afuera del círculo";
                 }
+                let theta = document.createElement("th");
+                theta.textContent = Math.round(values[1]) + "°";
+                let pos = document.createElement("th");
+                pos.textContent = "X=" + values[2] + "; Y=" + values[3];
                 row.appendChild(riceId);
                 row.appendChild(randomNumber1);
                 row.appendChild(randomNumber2);
                 row.appendChild(randomValue1);
                 row.appendChild(randomValue2);
+                row.appendChild(theta);
+                row.appendChild(pos);
                 row.appendChild(position);
                 tableBody.appendChild(row);
                 k ++;
@@ -140,7 +163,7 @@
         let result = 1;
         // Para ver si el arroz cayó en el círculo, se toma el cuadrado como un gráfico de coordinadas
         // Donde el origen es el medio del cuadrado.
-        let theta = Math.atan2(y - 125, x - 125) * (180 / Math.PI); // Calculo el ángulo del punto
+        let theta = Math.atan2(y - 0, x - 0) * (180 / Math.PI); // Calculo el ángulo del punto
         const radius = 125
         const circleX = Math.cos(theta)*radius; // Punto de la circunferencia del círculo en el ángulo theta
         const circleY = Math.sin(theta)*radius; // Punto de la circunferencia del círculo en el ángulo theta
@@ -152,7 +175,7 @@
         if (x > circleX * xSigne && y > circleY * ySigne) {
             result = 0;
         }
-        return result;
+        return [result, theta, circleX, circleY];
     }
 
 </script>
