@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
     .square {
@@ -31,32 +32,33 @@
     }
 </style>
 </head>
-<body>
-    <h1>Cálculo de PI con el método de Montecarlo</h1>
-    <section class="w3-row  w3-light-grey">
+<body class="w3-container">
+    <h1 class="w3-center w3-blue-grey">Cálculo de PI con el método de Montecarlo</h1>
         <section>
             <h2>Descripción</h2>
-            <p>Se resolvió representando la hoja de papel en un sistema de coordenadas cartesianas.</p>
-            <p>Donde el centro del cuadrado y el círculo es el origen (0, 0).</p>
-            <p>Se usa como unidades píxeles (por si se llega a representar en un dibujo).
-                Los lados del cuadrado miden 250 píxeles y el diámetro del círculo es de 125 píxeles.</p>
-            <p>Por lo que cuando se simula que se tira un grano de arroz sobre la hoja, se generan
-                dos números aleatorios. Uno para obtener un valor en la posición del eje X y otro
-                del eje Y.</p>
-            <p>Luego de calcular dos puntos aleatorios, se calcula el ángulo con respecto al centro del círculo que coincide la ordenada al origen.
-               Se calcula el punto de la circunferencia del círculo en ese ángulo.
-                Y con ese punto se calcula si el arroz cae afuera o dentro del círculo.
-            </p>
+            <section>
+                <p>Se resolvió representando la hoja de papel en un sistema de coordenadas cartesianas.</p>
+                <p>Donde el centro del cuadrado y el círculo es el origen (0, 0).</p>
+                <p>Se usa como unidades píxeles (por si se llega a representar en un dibujo).
+                    Los lados del cuadrado miden 250 píxeles y el diámetro del círculo es de 125 píxeles.</p>
+                <p>Por lo que cuando se simula que se tira un grano de arroz sobre la hoja, se generan
+                    dos números aleatorios. Uno para obtener un valor en la posición del eje X y otro
+                    del eje Y.</p>
+                <p>Luego de calcular dos puntos aleatorios, se calcula el ángulo con respecto al centro del círculo que coincide la ordenada al origen.
+                    Se calcula el punto de la circunferencia del círculo en ese ángulo.
+                    Y con ese punto se calcula si el arroz cae afuera o dentro del círculo.
+                </p>
+            </section>
         </section>
         <section class="w3-half">
-            <h3>Calcular PI</h3>
+            <h3>Ejecutar la simulación</h3>
             <p></p>
-            <label for="rice-number">Cantidad de granos de arroz</label>
-            <input id="rice-number" type="number" min="1" placeholder="Número de granos">
-            <button onclick="generateRandomNumbers()">Ejecutar la simulación</button>
+            <label for="rice-number" class="w3-quarter">Ingresar cantidad de granos de arroz</label>
+            <input id="rice-number" type="number" min="1" placeholder="Número de granos" class="w3-input w3-quarter">
+            <button class="w3-button w3-teal" onclick="generateRandomNumbers()">Ejecutar la simulación&nbsp;&nbsp;<i class="fa fa-flask"></i></button>
         </section>
         <section class="w3-half">
-            <h3>Resultados</h3>
+            <h3>Resultados de la simulación</h3>
             <section id="results">
                 <p id="p-inside">Adentro del cículo: </p>
                 <p id="p-total">Total: </p>
@@ -70,8 +72,8 @@
 <!--                <div class="circle"></div>-->
 <!--            </div>-->
 <!--        </section>-->
-        <section class="w3-rest w3-blue-grey">
-            <h2>Números generados</h2>
+        <section class="w3-rest w3-grey">
+            <h3>Iteraciones de la simulacion</h3>
             <table class="w3-table w3-striped w3-bordered w3-text-black">
                 <thead>
                 <tr>
