@@ -105,17 +105,17 @@
         quantity = document.querySelector("#rice-number").value
         console.log(quantity)
         if (quantity > 0) {
-            let randomNumbers = [];
+            let riceGrainValues = [];
             for (let i = 0; i < quantity; i++) {
-                const randomX = Math.random(); //* 250
-                const randomY = Math.random(); //* 250
-                randomNumbers.push([randomX, randomY, (randomX * 250) - 125, (randomY * 250) - 125]);
+                const randomX = Math.random();
+                const randomY = Math.random();
+                riceGrainValues.push([randomX, randomY, (randomX * 250) - 125, (randomY * 250) - 125]);
             }
             let tableBody = document.querySelector("#table-body");
             tableBody.innerHTML = "";
             let k = 1
             let inside = 0
-            randomNumbers.forEach(numbers => {
+            riceGrainValues.forEach(numbers => {
                 let row = document.createElement("tr");
                 let randomNumber1 = document.createElement("th");
                 randomNumber1.textContent = numbers[0];
@@ -167,7 +167,7 @@
         // Donde el origen es el medio del cuadrado.
         let theta = Math.atan2(y - 0, x - 0) * (180 / Math.PI); // Calculo el ángulo del punto
         const radius = 125
-        const circleX = Math.cos(theta)*radius; // Punto de la circunferencia del círculo en el ángulo theta
+        const circleX = Math.cos(theta)*radius;
         const circleY = Math.sin(theta)*radius; // Punto de la circunferencia del círculo en el ángulo theta
         // Se calcula si el grano arroz cayó
         let xSigne = 1;
@@ -175,8 +175,8 @@
         if (x < 0) { xSigne = -1; }
         if (y < 0) { ySigne = -1; }
         if (x > circleX * xSigne && y > circleY * ySigne) {
-            result = 0;
-        }
+            result = 0; // Está fuera de la circunferencia
+        } // Si no, está dentro de la circunferencia
         return [result, theta, circleX, circleY];
     }
 
