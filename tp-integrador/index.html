@@ -115,10 +115,15 @@
                 <h3>Resultados</h3>
                 <p id="invalid-votes"></p>
                 <p id="votes"></p>
+                <p id="valid-votes"></p>
                 <p id="participation"></p>
                 <p id="p-results">
 
                 </p>
+                <h4>Distribución de escaños:</h4>
+                <section id="graph">
+
+                </section>
             </section>
             <section>
                 <button class="w3-btn w3-ripple w3-teal" onclick="simulate()">Correr simulación&nbsp;&nbsp;<i class="fa fa-flask"></i></button>
@@ -450,7 +455,7 @@
             if (maxValues[1] === "Escarlata") {
                 scarlet = Math.floor(scarlet/2)
                 seatsScarlet++
-                row.classList.add("w3-hover-deep-orange")
+                row.classList.add("w3-hover-orange")
             }
 
             let fuchsiaVotesTh = document.createElement("th");
@@ -472,11 +477,13 @@
 
             tableBodyResults.appendChild(row);
 
-
+            const validVotes = blueVotes + whiteVotes + redVotes + scarletVotes + fuchsiaVotes
             let p = document.querySelector("#invalid-votes");
             p.innerHTML = "Votos en blanco: " + (votes - blueVotes - whiteVotes - redVotes - scarletVotes - fuchsiaVotes);
             p = document.querySelector("#votes");
             p.innerHTML = "Votos: " + votes + " de " + electors + " electores";
+            p = document.querySelector("#valid-votes");
+            p.innerHTML = "Votos válidos: " + validVotes + ", un " + (validVotes / electors)*100 + "% del total";
             p = document.querySelector("#participation");
             p.innerHTML = "Participación: " + ((votes/electors) * 100) + "% del padrón";
 
@@ -487,6 +494,38 @@
                             + "Se asignarán " + seatsBlue + " escaños al partido Azul, " + seatsWhite + " escaños al "
                             + "partido Blanco, " + seatsRed + " escaños al partido Colorado, " + seatsScarlet+ " escaños"
                             + " al partido Escarlata y " + seatsFuchsia + " escaños al partido Fucsia."
+        let graph = document.querySelector("#graph");
+
+        let graphHtml = "<section>"
+
+        for (let i = 0; i<seatsBlue; i++) {
+            graphHtml+= "<button class='w3-button w3-large w3-circle w3-xlarge w3-ripple w3-blue'>&nbsp;&nbsp;</button>&nbsp;"
+        }
+        graphHtml += "</section>&nbsp;<section>"
+
+        for (let i = 0; i<seatsWhite; i++) {
+            graphHtml+= "<button class='w3-btn w3-white w3-circle w3-border w3-xlarge w3-border-black'>&nbsp;&nbsp;</button>&nbsp;"
+        }
+        graphHtml += "</section>&nbsp;<section>"
+
+        for (let i = 0; i<seatsRed; i++) {
+            graphHtml+= "<button class='w3-button w3-large w3-circle w3-xlarge w3-ripple w3-red'>&nbsp;&nbsp;</button>&nbsp;"
+        }
+        graphHtml += "</section>&nbsp;<section>"
+
+        for (let i = 0; i<seatsScarlet; i++) {
+            graphHtml+= "<button class='w3-button w3-large w3-circle w3-xlarge w3-ripple w3-orange'>&nbsp;&nbsp;</button>&nbsp;"
+        }
+        graphHtml += "</section>&nbsp;<section>"
+
+        for (let i = 0; i<seatsFuchsia; i++) {
+            graphHtml+= "<button class='w3-button w3-large w3-circle w3-xlarge w3-ripple w3-purple'>&nbsp;&nbsp;</button>&nbsp;"
+        }
+        graphHtml += "</section>"
+
+        graph.innerHTML = graphHtml;
+
+        //w3-button w3-large w3-circle w3-xlarge w3-ripple w3-black
 
 
     }
