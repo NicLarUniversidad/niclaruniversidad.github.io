@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabajo práctico integrador: Las elecciones de octubre</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+    .col-container {
+        display: table; /* Make the container element behave like a table */
+        width: 100%; /* Set full-width to expand the whole page */
+    }
+
+    .col {
+        display: table-cell; /* Make elements inside the container behave like table cells */
+    }
+</style>
+<body>
+    <h1 class="w3-container w3-teal w3-center">Las elecciones de octubre en Junín</h1>
+    <section  class="w3-container">
+        <h2 class="w3-container w3-teal">Introducción</h2>
+        <p>Se celebran elecciones para definir 18 escaños en el Concejo Deliberante en Junín, utilizando el método D'Hont.
+            Hay 5 partidos inscriptos: Azul, Blanco, Colorado, Escarlata y Fucsia y el padrón se compone de 11404 electores.
+        </p>
+        <p>
+            Hay 20% de indecisos o que no revelaron sus intenciones.
+            El partido Azul tiene una intención de voto del 30%.
+            El partido Blanco tiene una intención de voto del 20%.
+            El partido Colorado tiene una intención de voto del 10%.
+            El partido Escarlata tiene una intención de voto del 10%.
+            El partido Fucsia tiene una intención de voto del 10%.
+            Hay una probabilidad del 10% que un elector no se presente a votar
+        </p>
+        <section>
+            <h3>Por elecciones anteriores se ha comprobado que...</h3>
+            <section class="col-container">
+
+                <section  class="w3-card-4 col w3-margin w3-padding-16">
+                    <h4 class="w3-container w3-teal w3-center w3-padding-16">Los electores indecisos</h4>
+                    <ul>
+                        <li>Hay una probabilidad del 20% que los indecisos voten en blanco</li>
+                        <li>Hay una probabilidad del 30% de que los indecisos voten en función de la encuesta
+                            positivamente (o sea, al que está favorecido por la encuesta)</li>
+                        <li>Hay una probabilidad del 10% de que los indecisos voten en contra de la encuesta (o
+                            sea, al partido menos favorecido)</li>
+                        <li>El resto de los indecisos pueden votar a cualquier candidato sin forma de predecir a cuál.</li>
+                    </ul>
+                </section>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <section class="w3-card col">
+                    <h4  class="w3-container w3-blue w3-center w3-padding-16">Los electores del partido azul</h4>
+                    <ul>
+                        <li>Los electores del partido Azul tienen un grado de confiabilidad del 70%, es decir, la
+                            probabilidad de que cumplan con su expresión es de 0,7.</li>
+                        <li>Hay una probabilidad de 0,1 de que cambien el voto a último momento por el Fucsia,</li>
+                        <li>y del 0,05 de que cambien al Colorado,</li>
+                        <li>y de 0,15 que voten en blanco.</li>
+                    </ul>
+                </section>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <section class="w3-card col">
+                    <h4 class="w3-center w3-padding-16">Los electores del partido blanco</h4>
+                    <ul>
+                        <li>Los electores del partido Blanco están fuertemente dominados por un posible
+                            acuerdo con el Escarlata, por lo cual hay una probabilidad del 30% que se vote a ese
+                            último partido,</li>
+                        <li>o que, decepcionados, el 5% vote en blanco.</li>
+                    </ul>
+                </section>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <section class="w3-card col">
+                    <h4 class="w3-container w3-red w3-center w3-padding-16">Los electores del partido colorado</h4>
+                    <ul>
+                        <li>El partido colorado es el de más alto grado de fidelidad partidaria: el 95% de sus
+                            electores respetará sus ideales,</li>
+                        <li>mientras que el resto repartirá sus preferencias en
+                            partes iguales con el voto en blanco o votando a cualquier otro partido,
+                            equiprobablemente.</li>
+                    </ul>
+                </section>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <section class="w3-card col">
+                    <h4 class="w3-container w3-purple w3-center w3-padding-16">Los electores del partido escarlata y fucsia</h4>
+                    <ul>
+                        <li>Los partidos Escarlata y Fucsia se manejan como militantes disciplinados que no
+                            cambian su voto ni votan en blanco.</li>
+                        <li>Solamente hay una P = 0,05 de que por razones
+                            fortuitas no asistan al comisio.</li>
+                    </ul>
+                </section>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            </section>
+        </section>
+    </section>
+
+    <section>
+        <h2 class="w3-container w3-teal w3-center w3-padding-32">Simulación</h2>
+
+        <section class="w3-third">
+            <h3>Resultados</h3>
+            <p id="invalid-votes"></p>
+            <p id="votes"></p>
+            <p id="participation"></p>
+            <p id="p-results">
+
+            </p>
+            <table class="w3-striped">
+                <h4>Votos</h4>
+                <thead>
+                    <th>Azul</th>
+                    <th>Blanco</th>
+                    <th>Colorado</th>
+                    <th>Escarlata</th>
+                    <th>Fucsia</th>
+                </thead>
+                <tbody id="table-body-results">
+
+                </tbody>
+            </table>
+        </section>
+        <section class="w3-third">
+            <h3>Iteraciones</h3>
+            <table class="w3-striped">
+                <thead>
+                    <th>Tipo de elector</th>
+                    <th>Irá a votar</th>
+                    <th>Voto</th>
+                </thead>
+                <tbody id="table-body">
+
+                </tbody>
+            </table>
+        </section>
+        <button class="w3-btn w3-ripple w3-teal" onclick="simulate()">Correr simulación&nbsp;&nbsp;<i class="fa fa-flask"></i></button>
+    </section>
+
+</body>
+</html>
+
+<script>
+
+    function getRandomVote(randomVote) {
+        /*
+                Función que devuelve un partido aleatorio
+                con igual probabilidad entre ellos.
+
+                Azul,    0.2,          0.2
+                Blanco,  0.2,          0.4
+                Colorado,0.2,          0.6
+                Escarlata,0.2,         0.8
+                Fucsia,  0.2,          1.0
+         */
+        let electorType = "";
+        if (randomVote <= 0.2)
+            electorType = "Azul"
+        else
+        if (randomVote <= 0.4)
+            electorType = "Blanco"
+        else
+        if (randomVote <= 0.6)
+            electorType = "Colorado"
+        else
+        if (randomVote <= 0.8)
+            electorType = "Escarlata"
+        else
+            electorType = "Fucsia"
+        return electorType
+    }
+
+    function simulate() {
+        const electors = 11404;
+        let tableBody = document.querySelector("#table-body");
+        tableBody.innerHTML = "";
+        let tableBodyResults = document.querySelector("#table-body-results");
+        tableBodyResults.innerHTML = "";
+        let pResults = document.querySelector("#p-results");
+        pResults.innerHTML = "";
+
+        let blueVotes = 0
+        let whiteVotes = 0
+        let redVotes = 0
+        let scarletVotes = 0
+        let fuchsiaVotes = 0
+
+        let votes = 0
+
+
+        for(let i = 0; i<electors; i++) {
+            // Muestra números aleatorios
+            const randomPartyVoter = Math.random(); // Número aleatorio elector
+            const randomBehavior = Math.random(); // Número aleatorio comportamiento
+            const randomGoing = Math.random(); // Número aleatorio presentarse
+            const randomVote = Math.random(); // Número aleatorio voto aleatorio
+            const randomNegativeVote = Math.random(); // Número aleatorio voto contra de la encuesta
+            const randomRedUndecided = Math.random(); // Número aleatorio para el 5% de electores del partido Colorado que pueden votar en blanco a otro partido
+
+            // Conversión a valores válidos para el modelo
+
+            /*
+                Definir de qué partido es el elector:
+
+                Partido, Probabilidad, Probabilidad acumulada
+                Azul,    0.3,          0.3
+                Blanco,  0.2,          0.5
+                Colorado,0.1,          0.6
+                Escarlata,0.1,         0.7
+                Fucsia,  0.1,          0.8
+                Indeciso,0.2,         1.0
+             */
+
+            let electorType = ""
+            let vote = ""
+
+
+            if (randomPartyVoter <= 0.3) {
+                electorType = "Azul"
+                /*
+                    Comportamiento:
+
+                    Voto,       Probabilidad,       Probabilidad acumulada
+                    Azul,       0.7,                0.7
+                    Fucsia,     0.1,                0.8
+                    Colorado,   0.05,               0.85
+                    Voto/Blanco 0.15,               1
+
+                 */
+                if (randomBehavior <= 0.7)
+                    vote = "Azul"
+                else {
+                    if (randomBehavior <= 0.8)
+                        vote = "Fucsia"
+                    else {
+                        if (randomBehavior <= 0.85) {
+                            vote = "Colorado";
+                        } else {
+                            vote = ""; // Voto en blanco
+                        }
+                    }
+                }
+            } else
+                if (randomPartyVoter <= 0.5) {
+                    electorType = "Blanco"
+                    /*
+                        Comportamiento:
+
+                        Voto,       Probabilidad,       Probabilidad acumulada
+                        Blanco,     0.65,               0.65
+                        Fucsia,     0.3,                0.95
+                        Voto/Blanco 0.05,               1
+
+                     */
+                    if (randomBehavior <= 0.65)
+                        vote = "Blanco"
+                    else {
+                        if (randomBehavior <= 0.95)
+                            vote = "Fucsia"
+                        else {
+                            vote = ""; // Voto en blanco
+                        }
+                    }
+                } else
+                    if (randomPartyVoter <= 0.6) {
+                        electorType = "Colorado"
+                        /*
+                            Comportamiento:
+
+                            Voto,       Probabilidad,       Probabilidad acumulada
+                            Colorado,   0.95,               0.95
+                            Otro,       0.05,               1.0
+
+                         */
+                        if (randomBehavior <= 0.95)
+                            vote = "Colorado"
+                        else {
+
+                            /*
+                                Se reparten en partes iguales:
+
+                                Voto en blanco        0.5         0.5
+                                Voto aleatorio        0.5         1.0
+                             */
+                            if (randomRedUndecided <= 0.5)
+                                vote = ""; // Voto en blanco
+                            else {
+                                vote = getRandomVote(randomVote) // Voto aleatorio
+                            }
+                        }
+                    } else
+                        if (randomPartyVoter <= 0.7) {
+                            electorType = "Escarlata"
+                            vote = "Escarlata"
+                        } else
+                            if (randomPartyVoter <= 0.8) {
+                                electorType = "Fucsia"
+                                vote = "Fucsia"
+                            } else {
+                                electorType = "Indeciso"
+
+                                /*
+                                    Comportamiento:
+
+                                    Voto                            Probabilidad            Probabilidad acomulada
+                                    Voto/Blanco                     0.2                     0.2
+                                    A favor de la encuesta (Azul)   0.3                     0.5
+                                    Contra la encuesta              0.1                     0.6
+                                    (Colorado, Escarlata o Fucsia)
+                                    Voto aleatorio                  0.4                     1.0
+                                */
+                                if (randomBehavior <= 0.2) {
+                                    vote = ""
+                                } else
+                                    if (randomBehavior <= 0.5) {
+                                        vote = "Azul"
+                                    } else
+                                        if (randomBehavior <= 0.6) {
+
+                                            const oneThird = 1/3
+                                            /*
+                                                Voto en contra de la encueta
+
+
+                                                Colorado        0.33            0.33
+                                                Escarlata       0.33            0.66
+                                                Fucsia          0.33            1.00
+                                             */
+                                            if (randomNegativeVote <= oneThird)
+                                                vote = "Colorado"
+                                            else
+                                                if (randomNegativeVote <= oneThird * 2)
+                                                    vote = "Escarlata"
+                                                else
+                                                    vote = "Fucsia"
+
+                                        } else
+                                            vote = getRandomVote(randomVote) // Voto aleatorio
+
+                            }
+            let goingToVote = false;
+            if (electorType == "Fucsia" || electorType === "Escarlata") {
+
+                    /*
+                        Los electores de los partidos Fucsia y Escarlata tienen una probabilidad del 5%
+                        de no ir a votar.
+
+                        Presencialidad      Probabilidad            Probabilidad acomulada
+                        Va a votar          0.95                     0.95
+                        No va a votar       0.5                      1.0
+                    */
+                    goingToVote = randomGoing <= 0.95
+                } else {
+                    /*
+                        Los demás tienen un 10% de probabilidad de no ir a votar.
+
+                        Presencialidad      Probabilidad            Probabilidad acomulada
+                        Va a votar          0.9                     0.9
+                        No va a votar       0.1                     1.0
+                    */
+                    goingToVote = randomGoing <= 0.9
+                }
+
+            // Agrego los datos en una tabla
+
+            let row = document.createElement("tr");
+            let electorTypeTh = document.createElement("th");
+            electorTypeTh.textContent = electorType
+            row.appendChild(electorTypeTh)
+            let goingToVoteTh = document.createElement("th");
+            let voteTh = document.createElement("th");
+            if (goingToVote) {
+                goingToVoteTh.innerHTML = "SI"
+                voteTh.innerHTML = vote
+            } else {
+                goingToVoteTh.innerHTML = "NO"
+                voteTh.innerHTML = ""
+            }
+            row.appendChild(goingToVoteTh)
+            row.appendChild(voteTh)
+
+            tableBody.appendChild(row);
+
+            // Se guardan resultados
+
+            if (goingToVote) {
+                votes++
+                if (electorType==="Azul") {
+                    blueVotes++
+                } else if (electorType === "Blanco") {
+                    whiteVotes++
+                } else if (electorType === "Colorado") {
+                    redVotes++
+                } else if (electorType === "Escarlata") {
+                    scarletVotes++
+                } else if (electorType === "Fucsia") {
+                    fuchsiaVotes++
+                }
+            }
+
+        }
+
+
+        // Se reparten los escaños
+        let blue = blueVotes
+        let white = whiteVotes
+        let red = redVotes
+        let scarlet = scarletVotes
+        let fuchsia = fuchsiaVotes
+        let seatsBlue = 0
+        let seatsWhite = 0
+        let seatsRed = 0
+        let seatsScarlet = 0
+        let seatsFuchsia = 0
+        for (let k = 0; k<15; k++) {
+
+            let row = document.createElement("tr");
+
+            let maxValues = getMaxAndNewValues(blue, white, red, scarlet, fuchsia)
+
+            let blueVotesTh = document.createElement("th");
+            blueVotesTh.innerHTML = blue + " votos"
+            if (maxValues[1] === "Azul") {
+                blue = Math.floor(blue/2)
+                seatsBlue++
+            }
+
+            let whiteVotesTh = document.createElement("th");
+            whiteVotesTh.innerHTML = white + " votos"
+            if (maxValues[1] === "Blanco") {
+                white = Math.floor(white/2)
+                seatsWhite++
+            }
+
+            let redVotesTh = document.createElement("th");
+            redVotesTh.innerHTML = red + " votos"
+            if (maxValues[1] === "Colorado") {
+                red = Math.floor(red/2)
+                seatsRed++
+            }
+
+            let scarletVotesTh = document.createElement("th");
+            scarletVotesTh.innerHTML = scarlet + " votos"
+            if (maxValues[1] === "Escarlata") {
+                scarlet = Math.floor(scarlet/2)
+                seatsScarlet++
+            }
+
+            let fuchsiaVotesTh = document.createElement("th");
+            fuchsiaVotesTh.innerHTML = fuchsia + " votos"
+            if (maxValues[1] === "Fucsia") {
+                fuchsia = Math.floor(fuchsia/2)
+                seatsFuchsia++
+            }
+
+            row.appendChild(blueVotesTh)
+            row.appendChild(whiteVotesTh)
+            row.appendChild(redVotesTh)
+            row.appendChild(scarletVotesTh)
+            row.appendChild(fuchsiaVotesTh)
+
+            tableBodyResults.appendChild(row);
+
+
+            let p = document.querySelector("#invalid-votes");
+            p.innerHTML = "Votos en blanco: " + (votes - blueVotes - whiteVotes - redVotes - scarletVotes - fuchsiaVotes);
+            p = document.querySelector("#votes");
+            p.innerHTML = "Votos: " + votes + " de " + electors + " electores";
+            p = document.querySelector("#participation");
+            p.innerHTML = "Participación: " + ((votes/electors) * 100) + "% del padrón";
+
+        }
+
+        pResults.innerHTML = "Según la simulación, el reparto de los escaños se dará de la siguiente manera. "
+        pResults.innerHTML = "Según la simulación, el reparto de los escaños se dará de la siguiente manera. "
+                            + "Se asignarán " + seatsBlue + " escaños al partido Azul, " + seatsWhite + " escaños al "
+                            + "partido Blanco, " + seatsRed + " escaños al partido Colorado, " + seatsScarlet+ " escaños"
+                            + " al partido Escarlata y " + seatsFuchsia + " escaños al partido Fucsia."
+
+
+    }
+
+    function getMaxAndNewValues(blue, white, red, scarlet, fuchsia) {
+        let maxValue = blue
+        let seatWinner = "Azul"
+        if (white > maxValue) {
+            maxValue = white
+            seatWinner = "Blanco"
+        }
+        if (red > maxValue) {
+            maxValue = red
+            seatWinner = "Colorado"
+        }
+        if (scarlet > maxValue) {
+            maxValue = scarlet
+            seatWinner = "Escarlata"
+        }
+        if (fuchsia > maxValue) {
+            maxValue = fuchsia
+            seatWinner = "Fucsia"
+        }
+        return [maxValue, seatWinner, maxValue % 2]
+    }
+
+</script>
