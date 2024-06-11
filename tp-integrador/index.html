@@ -385,6 +385,28 @@
                 voteTh.innerHTML = ""
             }
             row.appendChild(goingToVoteTh)
+            if (goingToVote) {
+                if (vote === "Azul") {
+                    voteTh.innerHTML = vote + "  <i class='fa fa-envelope-o' style=\"color:blue;\"></i>"
+                } else if (vote === "Blanco") {
+                    voteTh.innerHTML = vote + "  <i class='fa fa-envelope-o'></i>"
+                } else if (vote === "Colorado") {
+                    voteTh.innerHTML = vote + "  <i class='fa fa-envelope-o' style=\"color:red\"></i>"
+                } else if (vote === "Escarlata") {
+                    voteTh.innerHTML = vote + "  <i class='fa fa-envelope-o' style=\"color:orange\"></i>"
+                } else if (vote === "Fucsia") {
+                    voteTh.innerHTML = vote + "  <i class='fa fa-envelope-o' style=\"color:purple\"></i>"
+                } else if (goingToVote) {
+                    // 	fa fa-paper-plane-o
+                    voteTh.innerHTML = "<i class='fa fa-paper-plane-o'></i>"
+                } else {
+                    //voteTh.innerHTML = "<i class='fa fa-close w3-red'></i>"
+                    voteTh.innerHTML = "<span class=\"fa-stack fa-lg\">\n" +
+                        "  <i class=\"fa fa-envelope-o fa-stack-1x\"></i>\n" +
+                        "  <i class=\"fa fa-ban fa-stack-2x text-danger\" style=\"color:red;\"></i>\n" +
+                        "</span>"
+                }
+            }
             row.appendChild(voteTh)
 
             tableBody.appendChild(row);
