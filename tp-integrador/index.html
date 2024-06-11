@@ -179,7 +179,6 @@
     }
 
     function simulate() {
-        const electors = 11404;
         let tableBody = document.querySelector("#table-body");
         tableBody.innerHTML = "";
         let tableBodyResults = document.querySelector("#table-body-results");
@@ -196,6 +195,7 @@
         let votes = 0
 
 
+        const electors = 11404;
         for(let i = 0; i<electors; i++) {
             // Muestra números aleatorios
             const randomPartyVoter = Math.random(); // Número aleatorio elector
@@ -442,7 +442,7 @@
         let seatsRed = 0
         let seatsScarlet = 0
         let seatsFuchsia = 0
-        for (let k = 0; k<15; k++) {
+        for (let k = 0; k<18; k++) {
 
             let row = document.createElement("tr");
 
